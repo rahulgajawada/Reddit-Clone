@@ -15,11 +15,6 @@ import MenuItem from '@mui/material/MenuItem';
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-// const useStyles = makeStyles({
-//     logo: {
-//       maxWidth: 160,
-//     },
-//   });
 
 const ResponsiveAppBar = () => {
 
