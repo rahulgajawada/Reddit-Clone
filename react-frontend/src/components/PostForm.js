@@ -5,6 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import {Paper, TextareaAutosize} from '@material-ui/core'
 import Typography from '@mui/material/Typography';
 import Zoom from '@mui/material/Zoom';
 import Fab from '@mui/material/Fab';
@@ -17,6 +18,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import PollIcon from '@mui/icons-material/Poll';
 import NotesIcon from '@mui/icons-material/Notes';
+import CommunityBar from './CommunityBar'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -101,6 +103,11 @@ const Post =() => {
   ];
 
   return (
+      <div>
+    <Paper>
+      <CommunityBar/>
+    </Paper>
+
     <Box
       sx={{
         bgcolor: 'background.paper',
@@ -130,16 +137,27 @@ const Post =() => {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          Item One
+                    <TextareaAutosize
+            aria-label="minimum height"
+            minRows={2}
+            placeholder="Title"
+            style={{ width: 400 }}
+            />
+
+      <Box sx={{ m: 4 }} /> 
+
+                    <TextareaAutosize
+            aria-label="minimum height"
+            minRows={9}
+            placeholder="Text(optional)"
+            style={{ width: 400 }}
+            />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
-          Item Three
         </TabPanel>
       </SwipeableViews>
       {fabs.map((fab, index) => (
@@ -158,6 +176,7 @@ const Post =() => {
         </Zoom>
       ))}
     </Box>
+</div>
   );
 }
 
