@@ -11,6 +11,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Login from './Login'
+import {Grid} from '@mui/material'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -39,32 +43,9 @@ const ResponsiveAppBar = () => {
             alt="Your logo."
             src={"https://logos-world.net/wp-content/uploads/2020/10/Reddit-Logo.png"}
         />        
-    {/* <div>
-        <Button
-                id="basic-button"
-                aria-controls={open ? 'basic-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
-            >
-            <Typography color="black" >
-            Home
-            </Typography>
-            </Button>
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                'aria-labelledby': 'basic-button',
-                }}
-            >
-                <MenuItem onClick={handleClose}>Home</MenuItem>
-                <MenuItem onClick={handleClose}>Popular</MenuItem>
-                <MenuItem onClick={handleClose}>All posts</MenuItem>
-            </Menu>
-    </div> */}
+        <Grid container justifyContent="flex-end">
+          <Login/>
+        </Grid>
 
         </Toolbar>
       </Container>

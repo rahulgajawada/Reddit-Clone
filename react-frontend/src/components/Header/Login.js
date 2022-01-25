@@ -2,10 +2,10 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Box from '@mui/material/Box';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 
-export default function CommunityBar() {
+export default function Login() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -17,18 +17,16 @@ export default function CommunityBar() {
 
   return (
     <div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-      Choose a Community
-      </Button>
-
-      <Box sx={{ m: 4 }} /> 
-
+        <Button
+            id="basic-button"
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+        >
+            <PermIdentityIcon/>
+            <KeyboardArrowDownIcon/>
+        </Button>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -40,7 +38,7 @@ export default function CommunityBar() {
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>Login/Logout</MenuItem>
       </Menu>
     </div>
   );

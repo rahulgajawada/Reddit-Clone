@@ -1,9 +1,10 @@
 import React from 'react'
-import ResponsiveAppBar from './AppBar'
+import ResponsiveAppBar from './Header/AppBar'
 import { spacing } from '@mui/system';
 
 import { makeStyles } from "@material-ui/core/styles";
-import Post from './PostForm'
+import PostForm from './PostForm'
+import Post from './Post'
 import CssBaseline from "@mui/material/CssBaseline";
 import {Box, Container, ThemeProvider, createTheme, Button, Paper } from "@material-ui/core";
 import yellow from "@material-ui/core/colors/yellow";
@@ -24,6 +25,8 @@ const RedditApp = () => {
                     <Box sx={{ m: 4 }} /> 
 
                     <Box>
+                    <PostForm/>
+                    <Box sx={{ m: 4 }} /> 
                     <Post/>
                     </Box>
 

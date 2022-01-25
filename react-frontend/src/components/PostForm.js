@@ -19,6 +19,7 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import PollIcon from '@mui/icons-material/Poll';
 import NotesIcon from '@mui/icons-material/Notes';
 import CommunityBar from './CommunityBar'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -64,7 +65,7 @@ const fabGreenStyle = {
   },
 };
 
-const Post =() => {
+const PostForm =() => {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
@@ -81,37 +82,16 @@ const Post =() => {
     exit: theme.transitions.duration.leavingScreen,
   };
 
-  const fabs = [
-    {
-      color: 'primary',
-      sx: fabStyle,
-      icon: <AddIcon />,
-      label: 'Add',
-    },
-    {
-      color: 'secondary',
-      sx: fabStyle,
-      icon: <EditIcon />,
-      label: 'Edit',
-    },
-    {
-      color: 'inherit',
-      sx: { ...fabStyle, ...fabGreenStyle },
-      icon: <UpIcon />,
-      label: 'Expand',
-    },
-  ];
-
   return (
       <div>
-    <Paper>
-      <CommunityBar/>
-    </Paper>
+      <Box sx={{ width: 1/3 }}>
+          <CommunityBar/>
+      </Box>
 
     <Box
       sx={{
         bgcolor: 'background.paper',
-        width: 500,
+        width: 700,
         position: 'relative',
         minHeight: 200,
       }}
@@ -141,7 +121,7 @@ const Post =() => {
             aria-label="minimum height"
             minRows={2}
             placeholder="Title"
-            style={{ width: 400 }}
+            style={{ width: 600 }}
             />
 
       <Box sx={{ m: 4 }} /> 
@@ -150,7 +130,7 @@ const Post =() => {
             aria-label="minimum height"
             minRows={9}
             placeholder="Text(optional)"
-            style={{ width: 400 }}
+            style={{ width: 600 }}
             />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
@@ -160,24 +140,9 @@ const Post =() => {
         <TabPanel value={value} index={3} dir={theme.direction}>
         </TabPanel>
       </SwipeableViews>
-      {fabs.map((fab, index) => (
-        <Zoom
-          key={fab.color}
-          in={value === index}
-          timeout={transitionDuration}
-          style={{
-            transitionDelay: `${value === index ? transitionDuration.exit : 0}ms`,
-          }}
-          unmountOnExit
-        >
-          <Fab sx={fab.sx} aria-label={fab.label} color={fab.color}>
-            {fab.icon}
-          </Fab>
-        </Zoom>
-      ))}
     </Box>
 </div>
   );
 }
 
-export default Post
+export default PostForm
