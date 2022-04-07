@@ -4,6 +4,7 @@ import { spacing } from '@mui/system';
 
 import { makeStyles } from "@material-ui/core/styles";
 import PostForm from './PostForm'
+import Posts from './Posts'
 import Post from './Post'
 import CssBaseline from "@mui/material/CssBaseline";
 import {Box, Container, ThemeProvider, createTheme, Button, Paper } from "@material-ui/core";
@@ -28,6 +29,7 @@ const RedditApp = () => {
                     <PostForm/>
                     <Box sx={{ m: 4 }} /> 
                     <Post/>
+                    <Posts/>
                     </Box>
 
                 </Container>

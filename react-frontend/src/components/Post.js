@@ -10,6 +10,8 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import {IconButton} from '@mui/material'
 
+
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -27,7 +29,7 @@ const useStyles = makeStyles({
   },
 });
 
- const Post = () => {
+ const Post = ({title, content}) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
@@ -40,7 +42,10 @@ const useStyles = makeStyles({
             Posted by u/munxer     one month ago
         </Typography>
         <Typography variant="h5" component="h2">
-        Covid Testing Megathread
+        {title}
+        </Typography>
+        <Typography variant="body2" component="h2">
+        {content}
         </Typography>
       </CardContent>
       <CardActions>
