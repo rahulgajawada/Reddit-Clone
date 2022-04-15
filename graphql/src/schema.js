@@ -18,9 +18,16 @@ const {gql} =  require('apollo-server')
         posts: [Post!]!
     }
 
+    type Community{
+        name: String!
+        id: Int!
+        posts: [Post!]!
+    }
+
     type Query{
         posts: [Post!]!
         allPosts: [Post!]!
+        allCommunities: [Community!]!
     }
 
     type Mutation{
@@ -47,6 +54,9 @@ const resolvers = {
         posts: () => posts,
         allPosts: (parent, args, context) => {
             return context.prisma.post.findMany({})
+        },
+        allCommunities: (parent, args, context) => {
+            return context.prisma.community.findMany({})
         }
     },
     Mutation:{

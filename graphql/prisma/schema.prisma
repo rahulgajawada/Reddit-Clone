@@ -21,5 +21,14 @@ model Post {
   title String
   content String
   userID Int
+  communityID Int?
   user User @relation(fields: [userID], references: [id])
+  community Community? @relation(fields: [communityID], references: [id])
+
+}
+
+model Community{
+  id Int @unique @default(autoincrement())
+  name String
+  posts Post[]
 }
