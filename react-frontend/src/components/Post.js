@@ -33,6 +33,7 @@ const Post = ({ title, content }) => {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
+  <div>
     <Card className={classes.root} variant="outlined">
       <CardContent>
         <ArrowUpwardIcon />
@@ -61,6 +62,9 @@ const Post = ({ title, content }) => {
         </Button>
       </CardActions>
     </Card>
+
+    <br></br>
+    </div>
   );
 };
 

@@ -1,20 +1,25 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-//Modelling our database!!
 
-//Post
-model Post{
- id String @unique @default(cuid())
- name String
+model User{
+  id Int @unique @default(autoincrement())
+  name String
+  email String
+  posts Post[]
+}
+
+model Post {
+  id Int @unique @default(autoincrement())
+  title String
+  content String
+  userID Int
+  user User @relation(fields: [userID], references: [id])
 }

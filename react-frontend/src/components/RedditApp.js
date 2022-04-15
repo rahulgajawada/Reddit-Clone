@@ -34,12 +34,12 @@ const RedditApp = () => {
         <Box sx={{ m: 4 }} />
 
         <ExpandedPosts likes={10} dislikes={5}></ExpandedPosts>
-        {/*<Box>
+
+        <Box>
           <PostForm />
           <Box sx={{ m: 4 }} />
-          <Post />
           <Posts />
-  </Box>*/}
+        </Box>
       </Container>
     </div>
   );
