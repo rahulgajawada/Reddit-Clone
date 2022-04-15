@@ -26,6 +26,13 @@ const useStyles = makeStyles((theme) => ({
 
 const RedditApp = () => {
   const classes = useStyles();
+  const newPost = {
+    title: "YMCP Swipes",
+    content:
+      "You get 150 free ymcp swipes for a week in an attempt to inhibit the effects of climate change",
+    likes: 15,
+    comments: ["hi this is good"],
+  };
   return (
     <div>
       <Container className={classes.yellowPaper}>
@@ -33,8 +40,7 @@ const RedditApp = () => {
 
         <Box sx={{ m: 4 }} />
 
-        <ExpandedPosts likes={10} dislikes={5}></ExpandedPosts>
-
+        <ExpandedPosts post={newPost}></ExpandedPosts>
         <Box>
           <PostForm />
           <Box sx={{ m: 4 }} />

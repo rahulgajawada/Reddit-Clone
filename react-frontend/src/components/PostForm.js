@@ -138,9 +138,7 @@ const PostForm = () => {
         <TabPanel value={value} index={1} dir={theme.direction}></TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}></TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}></TabPanel>
-        {
-          //</SwipeableViews>
-        }
+        <SwipeableViews />
         <Button onClick={createPostOnClick}>Submit</Button>
       </Box>
     </div>

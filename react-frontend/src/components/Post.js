@@ -31,39 +31,38 @@ const useStyles = makeStyles({
 const Post = ({ title, content }) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-
   return (
-  <div>
-    <Card className={classes.root} variant="outlined">
-      <CardContent>
-        <ArrowUpwardIcon />
-        <ArrowDownwardIcon />
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          Posted by u/munxer one month ago
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {title}
-        </Typography>
-        <Typography variant="body2" component="h2">
-          {content}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button
-          size="small"
-          variant="outlined"
-          startIcon={<CommentOutlinedIcon />}
-        >
-          853 Comments
-        </Button>
-      </CardActions>
-    </Card>
+    <div>
+      <Card className={classes.root} variant="outlined">
+        <CardContent>
+          <ArrowUpwardIcon />
+          <ArrowDownwardIcon />
+          <Typography
+            className={classes.title}
+            color="textSecondary"
+            gutterBottom
+          >
+            Posted by u/munxer one month ago
+          </Typography>
+          <Typography variant="h5" component="h2">
+            {title}
+          </Typography>
+          <Typography variant="body2" component="h2">
+            {content}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button
+            size="small"
+            variant="outlined"
+            startIcon={<CommentOutlinedIcon />}
+          >
+            853 Comments
+          </Button>
+        </CardActions>
+      </Card>
 
-    <br></br>
+      <br></br>
     </div>
   );
 };
