@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import {Paper, TextareaAutosize} from '@material-ui/core'
+import {Paper, TextareaAutosize, Button} from '@material-ui/core'
 import Typography from '@mui/material/Typography';
 import Zoom from '@mui/material/Zoom';
 import Fab from '@mui/material/Fab';
@@ -20,6 +20,17 @@ import PollIcon from '@mui/icons-material/Poll';
 import NotesIcon from '@mui/icons-material/Notes';
 import CommunityBar from './CommunityBar'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import {useState, useEffect} from 'react'
+
+const { gql, useQuery, useMutation} = require('@apollo/client')
+
+const CREATE_POST = gql`
+  mutation CreatePost($title: String!, $content: String!) {
+    createPost(title: $title, content: $content){
+      content
+   }
+  }
+`
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,6 +93,15 @@ const PostForm =() => {
     exit: theme.transitions.duration.leavingScreen,
   };
 
+  const createPostOnClick = () => {
+    createPost({variables: {content, title}})
+    console.log("bruh")
+    console.log(content, title)
+  }
+  const [createPost, { data, loading, error }] = useMutation(CREATE_POST);
+  const [title, setTitle] = useState("")
+  const [content, setContent] = useState("")
+
   return (
       <div>
       <Box sx={{ width: 1/3 }}>
@@ -122,6 +142,7 @@ const PostForm =() => {
             minRows={2}
             placeholder="Title"
             style={{ width: 600 }}
+            onChange={(e) => setTitle(e.target.value)}
             />
 
       <Box sx={{ m: 4 }} /> 
@@ -131,6 +152,7 @@ const PostForm =() => {
             minRows={9}
             placeholder="Text(optional)"
             style={{ width: 600 }}
+            onChange={(e) => setContent(e.target.value)}
             />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
@@ -141,6 +163,7 @@ const PostForm =() => {
         </TabPanel>
       </SwipeableViews>
     </Box>
+    <Button onClick={createPostOnClick}>Submit</Button>
 </div>
   );
 }

@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Login from './Login'
+import AddIcon from '@mui/icons-material/Add';
 import {Grid} from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
@@ -44,6 +45,15 @@ const ResponsiveAppBar = () => {
             src={"https://logos-world.net/wp-content/uploads/2020/10/Reddit-Logo.png"}
         />        
         <Grid container justifyContent="flex-end">
+          <IconButton>
+            <AddIcon
+                sx={{ 
+                  color: "blue", 
+                  // backgroundColor: "blue", 
+                  borderRadius: "50%" 
+                }}
+            />
+          </IconButton>
           <Login/>
         </Grid>
 

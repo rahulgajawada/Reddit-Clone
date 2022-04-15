@@ -1,9 +1,10 @@
 import Post from './Post'
+import {useState, useEffect} from 'react'
 const { gql, useQuery } = require('@apollo/client')
 
 const GET_POSTS = gql`
-    query GetPosts{
-        posts{
+    query {
+        allPosts{
             content
             title
         }
@@ -12,11 +13,20 @@ const GET_POSTS = gql`
 `
 
 const Posts = () => {
-    const {data} = useQuery(GET_POSTS)
-    console.log(data)
+    const {loading, error, data} = useQuery(GET_POSTS)
+    const [posts, setPosts] = useState([])
+    let x = []
+    if(data){
+        x = [...data.allPosts]
+    }
+    useEffect(() => {
+        if(data){
+            setPosts(x)
+        }
+    }, data)
     return (
         <div>
-            <p>Hi</p>
+           {posts.map(({title, content}) => <Post title = {title} content={content}></Post>)}
         </div>
     )
 }

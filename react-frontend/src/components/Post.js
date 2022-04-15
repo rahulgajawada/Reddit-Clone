@@ -34,6 +34,7 @@ const useStyles = makeStyles({
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
+  <div>
     <Card className={classes.root} variant="outlined">
       <CardContent>
         <ArrowUpwardIcon/>
@@ -52,6 +53,9 @@ const useStyles = makeStyles({
         <Button size="small" variant="outlined" startIcon={<CommentOutlinedIcon/>}>853 Comments</Button>
       </CardActions>
     </Card>
+
+    <br></br>
+    </div>
   );
 }
 

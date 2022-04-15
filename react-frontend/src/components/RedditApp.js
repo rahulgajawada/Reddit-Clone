@@ -28,7 +28,6 @@ const RedditApp = () => {
                     <Box>
                     <PostForm/>
                     <Box sx={{ m: 4 }} /> 
-                    <Post/>
                     <Posts/>
                     </Box>
 
