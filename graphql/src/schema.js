@@ -8,6 +8,7 @@ const {gql} =  require('apollo-server')
         id: Int
         published: Boolean
         title: String
+        community: Community
         # updatedAt: DateTime!
     }
 
@@ -28,11 +29,12 @@ const {gql} =  require('apollo-server')
         posts: [Post!]!
         allPosts: [Post!]!
         allCommunities: [Community!]!
+        communityPosts(community: String!): [Post!]!
     }
 
     type Mutation{
         createUser(email: String!, name: String!): User!
-        createPost(title: String!, content: String!): Post!
+        createPost(title: String!, content: String!, community: String!): Post!
     }
 `
 
@@ -57,6 +59,14 @@ const resolvers = {
         },
         allCommunities: (parent, args, context) => {
             return context.prisma.community.findMany({})
+        },
+        communityPosts: (parent, args, context) => {
+            return context.prisma.community.findUnique({
+                where:{
+                    name: args.community
+                }
+            })
+            .posts()
         }
     },
     Mutation:{
@@ -76,6 +86,11 @@ const resolvers = {
                     title: args.title,
                     user:{
                         connect:{id:1}
+                    },
+                    community:{
+                        connect:{
+                            name:args.community
+                        }
                     }
                 }
             })

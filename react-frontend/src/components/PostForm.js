@@ -25,10 +25,10 @@ import {useState, useEffect} from 'react'
 const { gql, useQuery, useMutation} = require('@apollo/client')
 
 const CREATE_POST = gql`
-  mutation CreatePost($title: String!, $content: String!) {
-    createPost(title: $title, content: $content){
-      content
-   }
+  mutation CreatePost($title: String!, $content: String!, $community: String!) {
+    createPost(title: $title, content: $content, community: $community) {
+     content 
+    }
   }
 `
 
@@ -76,9 +76,13 @@ const fabGreenStyle = {
   },
 };
 
+let setCommunity = undefined
+
 const PostForm =() => {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
+  const [community, setCommunityLocal] = useState("")
+  setCommunity = setCommunityLocal 
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -94,13 +98,13 @@ const PostForm =() => {
   };
 
   const createPostOnClick = () => {
-    createPost({variables: {content, title}})
-    console.log("bruh")
-    console.log(content, title)
+    createPost({variables: {content, title, community}})
+    console.log(content, title, community)
   }
   const [createPost, { data, loading, error }] = useMutation(CREATE_POST);
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
+
 
   return (
       <div>
@@ -168,4 +172,4 @@ const PostForm =() => {
   );
 }
 
-export default PostForm
+export {PostForm, setCommunity}

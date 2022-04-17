@@ -21,14 +21,14 @@ model Post {
   title String
   content String
   userID Int
-  communityID Int?
+  communityID Int
   user User @relation(fields: [userID], references: [id])
-  community Community? @relation(fields: [communityID], references: [id])
+  community Community @relation(fields: [communityID], references: [id])
 
 }
 
 model Community{
   id Int @unique @default(autoincrement())
-  name String
+  name String @unique 
   posts Post[]
 }
