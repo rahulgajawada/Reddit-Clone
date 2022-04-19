@@ -25,15 +25,9 @@ import { useState, useEffect } from "react";
 const { gql, useQuery, useMutation } = require("@apollo/client");
 
 const CREATE_POST = gql`
-<<<<<<< HEAD
-  mutation CreatePost($title: String!, $content: String!) {
-    createPost(title: $title, content: $content) {
-      content
-=======
   mutation CreatePost($title: String!, $content: String!, $community: String!) {
     createPost(title: $title, content: $content, community: $community) {
-     content 
->>>>>>> main
+      content
     }
   }
 `;
@@ -82,17 +76,13 @@ const fabGreenStyle = {
   },
 };
 
-<<<<<<< HEAD
-const PostForm = () => {
-=======
-let setCommunity = undefined
+let setCommunity = undefined;
 
-const PostForm =() => {
->>>>>>> main
+const PostForm = () => {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const [community, setCommunityLocal] = useState("")
-  setCommunity = setCommunityLocal 
+  const [community, setCommunityLocal] = useState("");
+  setCommunity = setCommunityLocal;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -108,18 +98,12 @@ const PostForm =() => {
   };
 
   const createPostOnClick = () => {
-<<<<<<< HEAD
-    createPost({ variables: { content, title } });
+    createPost({ variables: { content, title, community } });
+    console.log(content, title, community);
   };
-=======
-    createPost({variables: {content, title, community}})
-    console.log(content, title, community)
-  }
->>>>>>> main
   const [createPost, { data, loading, error }] = useMutation(CREATE_POST);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-
 
   return (
     <div>
@@ -204,8 +188,4 @@ const PostForm =() => {
   );
 };
 
-<<<<<<< HEAD
-export default PostForm;
-=======
-export {PostForm, setCommunity}
->>>>>>> main
+export { PostForm, setCommunity };
