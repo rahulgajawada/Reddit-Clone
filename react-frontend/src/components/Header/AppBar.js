@@ -50,9 +50,19 @@ const ResponsiveAppBar = () => {
             src={
               "https://logos-world.net/wp-content/uploads/2020/10/Reddit-Logo.png"
             }
-          />
+          ></Box>
+          {/* <Button 
+        startIcon={<Avatar src={"https://logos-world.net/wp-content/uploads/2020/10/Reddit-Logo.png"} />}
+      >
+      </Button> */}
+
+          {/* <IconButton>
+          <a href="/"  
+    ><img src={"https://logos-world.net/wp-content/uploads/2020/10/Reddit-Logo.png"}></img>hi</a>
+        </IconButton> */}
+
           <Grid container justifyContent="flex-end">
-            <IconButton>
+            <IconButton href="/CreatePost">
               <AddIcon
                 sx={{
                   color: "blue",

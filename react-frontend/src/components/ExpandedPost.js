@@ -48,7 +48,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Post = ({ post }) => {
+const ExpandedPost = ({ post }) => {
   const classes = useStyles();
   const [likes, setLikes] = useState(post.likes);
   const [comments, setComments] = useState(post.comments || []);
@@ -166,4 +166,4 @@ const Post = ({ post }) => {
   );
 };
 
-export default Post;
+export default ExpandedPost;

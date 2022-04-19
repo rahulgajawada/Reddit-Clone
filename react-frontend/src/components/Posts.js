@@ -21,6 +21,7 @@ const Posts = () => {
     }
     useEffect(() => {
         if(data){
+            console.log("post created query")
             setPosts(x)
         }
     }, data)
