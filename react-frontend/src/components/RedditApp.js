@@ -32,6 +32,7 @@ const RedditApp = () => {
       "You get 150 free ymcp swipes for a week in an attempt to inhibit the effects of climate change",
     likes: 15,
     comments: ["hi this is good"],
+    user: "rohit",
   };
   return (
     <div>

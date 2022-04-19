@@ -4,9 +4,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 
-const CommentForm = ({ addComment }) => {
+const replyInput = ({ addReply }) => {
   return (
-    <Box sx={{ maxWidth: 600 }}>
+    <Box sx={{ maxWidth: 600, ml: "2em" }}>
       <TextareaAutosize
         aria-label="minimum height"
         minRows={9}
@@ -17,20 +17,19 @@ const CommentForm = ({ addComment }) => {
       <Button
         sx={{
           mt: "8px",
-          display: "flex",
-          justifyContent: "flex-end",
+          textAlign: "right",
         }}
         variant="contained"
         endIcon={<SendIcon />}
         onClick={(e) => {
-          addComment(e.target.parentElement.childNodes[0].value);
+          addReply(e.target.parentElement.childNodes[0].value);
           e.target.parentElement.childNodes[0].value = "";
         }}
       >
-        Comment
+        Reply
       </Button>
     </Box>
   );
 };
 
-export default CommentForm;
+export default replyInput;
