@@ -99,7 +99,7 @@ const Post = ({title, content, community}) => {
         <ArrowUpwardIcon/>
         <ArrowDownwardIcon/>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-         <a href={communityURL}>{"r/" + community}</a> 
+         <Link to={communityURL}>{"r/" + community}</Link> 
         </Typography>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
             Posted by u/munxer     one month ago
