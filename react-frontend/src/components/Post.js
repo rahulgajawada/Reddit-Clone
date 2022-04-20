@@ -34,50 +34,86 @@ const useStyles = makeStyles({
   },
 });
 
-const Post = ({ title, content }) => {
+// <<<<<<< rohit-dev
+// const Post = ({ title, content }) => {
+//   const classes = useStyles();
+//   const bull = <span className={classes.bullet}>•</span>;
+//   const linkTo = {
+//     pathname: `/${title}`, //change this to the routing style that reddit uses
+//     state: {
+//       title,
+//       content,
+//       //add likes, user to this, we need the likes and user when displaying minimized version of the post
+//     },
+//   };
+
+//   return (
+//     <Link to={linkTo} style={{ textDecoration: "none" }}>
+//       <div>
+//         <Card className={classes.root} variant="outlined">
+//           <CardContent>
+//             <ArrowUpwardIcon />
+//             <ArrowDownwardIcon />
+//             <Typography
+//               className={classes.title}
+//               color="textSecondary"
+//               gutterBottom
+//             >
+//               Posted by u/munxer one month ago
+//             </Typography>
+//             <Typography variant="h5" component="h2">
+//               {title}
+//             </Typography>
+//             <Typography variant="body2" component="h2">
+//               {content}
+//             </Typography>
+//           </CardContent>
+//           <CardActions>
+//             <Button
+//               size="small"
+//               variant="outlined"
+//               startIcon={<CommentOutlinedIcon />}
+//             >
+//               853 Comments
+//             </Button>
+//           </CardActions>
+//         </Card>
+// =======
+const Post = ({title, content, community}) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
+  let communityURL = `/r/${community}`
   const linkTo = {
-    pathname: `/${title}`, //change this to the routing style that reddit uses
-    state: {
-      title,
-      content,
-      //add likes, user to this, we need the likes and user when displaying minimized version of the post
-    },
-  };
-
+  pathname: `/${title}`, //change this to the routing style that reddit uses
+  state: {
+    title,
+    content,
+    //add likes, user to this, we need the likes and user when displaying minimized version of the post
+  },
   return (
-    <Link to={linkTo} style={{ textDecoration: "none" }}>
-      <div>
-        <Card className={classes.root} variant="outlined">
-          <CardContent>
-            <ArrowUpwardIcon />
-            <ArrowDownwardIcon />
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              gutterBottom
-            >
-              Posted by u/munxer one month ago
-            </Typography>
-            <Typography variant="h5" component="h2">
-              {title}
-            </Typography>
-            <Typography variant="body2" component="h2">
-              {content}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button
-              size="small"
-              variant="outlined"
-              startIcon={<CommentOutlinedIcon />}
-            >
-              853 Comments
-            </Button>
-          </CardActions>
-        </Card>
-
+  <Link to={linkTo} style={{ textDecoration: "none" }}>
+  <div>
+    <Card className={classes.root} variant="outlined">
+      <CardContent>
+        <ArrowUpwardIcon/>
+        <ArrowDownwardIcon/>
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+         <a href={communityURL}>{"r/" + community}</a> 
+        </Typography>
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+            Posted by u/munxer     one month ago
+        </Typography>
+        <Typography variant="h5" component="h2">
+        {title}
+        </Typography>
+        <Typography variant="body2" component="h2">
+        {content}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small" variant="outlined" startIcon={<CommentOutlinedIcon/>}>853 Comments</Button>
+      </CardActions>
+    </Card>
         <br></br>
       </div>
     </Link>
