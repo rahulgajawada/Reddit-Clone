@@ -1,36 +1,36 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import SwipeableViews from 'react-swipeable-views';
-import { useTheme } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import {Paper, TextareaAutosize, Button} from '@material-ui/core'
-import Typography from '@mui/material/Typography';
-import Zoom from '@mui/material/Zoom';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import UpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { green } from '@mui/material/colors';
-import Box from '@mui/material/Box';
-import ImageIcon from '@mui/icons-material/Image';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import PollIcon from '@mui/icons-material/Poll';
-import NotesIcon from '@mui/icons-material/Notes';
-import CommunityBar from './CommunityBar'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {useState, useEffect} from 'react'
+import * as React from "react";
+import PropTypes from "prop-types";
+import SwipeableViews from "react-swipeable-views";
+import { useTheme } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import { Paper, TextareaAutosize, Button } from "@material-ui/core";
+import Typography from "@mui/material/Typography";
+import Zoom from "@mui/material/Zoom";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
+import UpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { green } from "@mui/material/colors";
+import Box from "@mui/material/Box";
+import ImageIcon from "@mui/icons-material/Image";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import PollIcon from "@mui/icons-material/Poll";
+import NotesIcon from "@mui/icons-material/Notes";
+import CommunityBar from "./CommunityBar";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { useState, useEffect } from "react";
 
-const { gql, useQuery, useMutation} = require('@apollo/client')
+const { gql, useQuery, useMutation } = require("@apollo/client");
 
 const CREATE_POST = gql`
   mutation CreatePost($title: String!, $content: String!, $community: String!) {
     createPost(title: $title, content: $content, community: $community) {
-     content 
+      content
     }
   }
-`
+`;
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,31 +58,31 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `action-tab-${index}`,
-    'aria-controls': `action-tabpanel-${index}`,
+    "aria-controls": `action-tabpanel-${index}`,
   };
 }
 
 const fabStyle = {
-  position: 'absolute',
+  position: "absolute",
   bottom: 16,
   right: 16,
 };
 
 const fabGreenStyle = {
-  color: 'common.white',
+  color: "common.white",
   bgcolor: green[500],
-  '&:hover': {
+  "&:hover": {
     bgcolor: green[600],
   },
 };
 
-let setCommunity = undefined
+let setCommunity = undefined;
 
-const PostForm =() => {
+const PostForm = () => {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const [community, setCommunityLocal] = useState("")
-  setCommunity = setCommunityLocal 
+  const [community, setCommunityLocal] = useState("");
+  setCommunity = setCommunityLocal;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -98,78 +98,94 @@ const PostForm =() => {
   };
 
   const createPostOnClick = () => {
-    createPost({variables: {content, title, community}})
-    console.log(content, title, community)
-  }
+    createPost({ variables: { content, title, community } });
+    console.log(content, title, community);
+  };
   const [createPost, { data, loading, error }] = useMutation(CREATE_POST);
-  const [title, setTitle] = useState("")
-  const [content, setContent] = useState("")
-
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   return (
-      <div>
-      <Box sx={{ width: 1/3 }}>
-          <CommunityBar/>
+    <div>
+      <Box sx={{ width: 1 / 3 }}>
+        <CommunityBar />
       </Box>
 
-    <Box
-      sx={{
-        bgcolor: 'background.paper',
-        width: 700,
-        position: 'relative',
-        minHeight: 200,
-      }}
-    >
-      <AppBar position="static" color="default">
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          variant="fullWidth"
-          aria-label="action tabs example"
-        >
-          <Tab icon={<NotesIcon/>} iconPosition = "start" label="Post" {...a11yProps(0)}             />
-          <Tab icon={<ImageIcon/>} iconPosition = "start" label="Images & Video" {...a11yProps(1)} />
-          <Tab icon={<AttachFileIcon/>} iconPosition = "start" label ="Link" {...a11yProps(2)} />
-          <Tab icon={<PollIcon/>} iconPosition = "start" label="Poll" {...a11yProps(2)} />
-        </Tabs>
-      </AppBar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
+      <Box
+        sx={{
+          bgcolor: "background.paper",
+          width: 700,
+          position: "relative",
+          minHeight: 200,
+        }}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-                    <TextareaAutosize
-            aria-label="minimum height"
-            minRows={2}
-            placeholder="Title"
-            style={{ width: 600 }}
-            onChange={(e) => setTitle(e.target.value)}
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+            aria-label="action tabs example"
+          >
+            <Tab
+              icon={<NotesIcon />}
+              iconPosition="start"
+              label="Post"
+              {...a11yProps(0)}
+            />
+            <Tab
+              icon={<ImageIcon />}
+              iconPosition="start"
+              label="Images & Video"
+              {...a11yProps(1)}
+            />
+            <Tab
+              icon={<AttachFileIcon />}
+              iconPosition="start"
+              label="Link"
+              {...a11yProps(2)}
+            />
+            <Tab
+              icon={<PollIcon />}
+              iconPosition="start"
+              label="Poll"
+              {...a11yProps(2)}
+            />
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+          index={value}
+          onChangeIndex={handleChangeIndex}
+        >
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            <TextareaAutosize
+              aria-label="minimum height"
+              minRows={2}
+              placeholder="Title"
+              style={{ width: 600 }}
+              onChange={(e) => setTitle(e.target.value)}
             />
 
-      <Box sx={{ m: 4 }} /> 
+            <Box sx={{ m: 4 }} />
 
-                    <TextareaAutosize
-            aria-label="minimum height"
-            minRows={9}
-            placeholder="Text(optional)"
-            style={{ width: 600 }}
-            onChange={(e) => setContent(e.target.value)}
+            <TextareaAutosize
+              aria-label="minimum height"
+              minRows={9}
+              placeholder="Text(optional)"
+              style={{ width: 600 }}
+              onChange={(e) => setContent(e.target.value)}
             />
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-        </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-        </TabPanel>
-        <TabPanel value={value} index={3} dir={theme.direction}>
-        </TabPanel>
-      </SwipeableViews>
-    </Box>
-    <Button onClick={createPostOnClick}>Submit</Button>
-</div>
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}></TabPanel>
+          <TabPanel value={value} index={2} dir={theme.direction}></TabPanel>
+          <TabPanel value={value} index={3} dir={theme.direction}></TabPanel>
+        </SwipeableViews>
+      </Box>
+      <Button onClick={createPostOnClick}>Submit</Button>
+    </div>
   );
-}
+};
 
-export {PostForm, setCommunity}
+export { PostForm, setCommunity };
