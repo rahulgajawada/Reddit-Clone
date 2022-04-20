@@ -16,6 +16,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { Grid } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import { Link } from "react-router-dom";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -41,16 +42,18 @@ const ResponsiveAppBar = () => {
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box
-            component="img"
-            sx={{
-              height: 55,
-            }}
-            alt="Your logo."
-            src={
-              "https://logos-world.net/wp-content/uploads/2020/10/Reddit-Logo.png"
-            }
-          ></Box>
+          <Link to="/">
+            <Box
+              component="img"
+              sx={{
+                height: 55,
+              }}
+              alt="Your logo."
+              src={
+                "https://logos-world.net/wp-content/uploads/2020/10/Reddit-Logo.png"
+              }
+            ></Box>
+          </Link>
           {/* <Button 
         startIcon={<Avatar src={"https://logos-world.net/wp-content/uploads/2020/10/Reddit-Logo.png"} />}
       >

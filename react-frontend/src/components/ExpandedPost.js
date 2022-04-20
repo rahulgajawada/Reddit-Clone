@@ -10,6 +10,8 @@ import { grey } from "@material-ui/core/colors";
 import CommentForm from "./CommentForm";
 import Comment from "./Comment";
 import ForumIcon from "@mui/icons-material/Forum";
+import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
+import { useLocation } from "react-router-dom";
 
 const secondary = grey[700];
 
@@ -48,10 +50,11 @@ const useStyles = makeStyles({
   },
 });
 
-const ExpandedPost = ({ post }) => {
+const ExpandedPost = (props) => {
   const classes = useStyles();
-  const [likes, setLikes] = useState(post.likes);
-  const [comments, setComments] = useState(post.comments || []);
+  const post = useLocation().state;
+  const [likes, setLikes] = useState(post && post.likes ? post.likes : 0);
+  const [comments, setComments] = useState([]);
 
   const addComment = (newComment) => {
     //comment validation
@@ -61,7 +64,7 @@ const ExpandedPost = ({ post }) => {
   };
 
   useEffect(() => {
-    // get request to get the posts likes and comments
+    // get request to get the posts comments
 
     const getComments = async () => {
       //get comments from database asynchronously https://stackoverflow.com/questions/70466407/react-fetch-data-from-database-before-rendering-component
@@ -104,13 +107,15 @@ const ExpandedPost = ({ post }) => {
               variant="caption"
               gutterBottom
             >
-              Posted by u/{post.user}
+              {post && post.user
+                ? "Posted by u/{post.user}"
+                : "Posted by u/unknown"}
             </Typography>
             <Typography variant="h6" mt="5px" gutterBottom>
-              {post.title}
+              {post && post.title ? post.title : "nothing"}
             </Typography>
             <Typography mt="20px" variant="subtitle1" gutterBottom>
-              {post.content}
+              {post && post.content ? post.content : "nothing"}
             </Typography>
             <Box
               mt="20px"
@@ -118,10 +123,10 @@ const ExpandedPost = ({ post }) => {
                 display: "flex",
               }}
             >
-              <ChatBubbleOutlineIcon />
+              <CommentOutlinedIcon />
               <Typography variant="p" color={secondary} m={0.5}>
-                {post.comments.length > 1
-                  ? `${post.comment.length} Comments`
+                {comments.length != 1
+                  ? `${comments.length} Comments`
                   : `1 Comment`}
               </Typography>
             </Box>
