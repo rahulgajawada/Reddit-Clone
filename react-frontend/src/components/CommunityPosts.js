@@ -15,7 +15,6 @@ const GET_COMMUNITY_POSTS = gql`
 
 const CommunityPosts = () => {
     let {community} = useParams()
-    console.log(community)
     const {loading, error, data} = useQuery(GET_COMMUNITY_POSTS, {
         variables: {community}
     })
@@ -31,7 +30,7 @@ const CommunityPosts = () => {
     }, data)
     return (
         <div>
-           {posts.map(({title, content}) => <Post title = {title} content={content}></Post>)}
+           {posts.map(({title, content}) => <Post title = {title} content={content} community={community}></Post>)}
         </div>
     )
 }

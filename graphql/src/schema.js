@@ -1,4 +1,5 @@
 const {gql} =  require('apollo-server')
+const jwt = require('jsonwebtoken');
 
  const typeDefs = gql`
     type Post{
@@ -19,6 +20,11 @@ const {gql} =  require('apollo-server')
         posts: [Post!]!
     }
 
+    type AuthPayload{
+        user: User!
+        token: String!
+    }
+
     type Community{
         name: String!
         id: Int!
@@ -33,34 +39,24 @@ const {gql} =  require('apollo-server')
     }
 
     type Mutation{
-        createUser(email: String!, name: String!): User!
+        createUser(email: String!, name: String!): AuthPayload!
         createPost(title: String!, content: String!, community: String!): Post!
     }
 `
 
-const posts = [
-    {
-        content: "omicron is the new variant",
-        title: "Covid Testing Megathread"
-    },
-    {
-        content: "ola amigo",
-        title: "UMass YMCP Swipes"
-    }
-]
-
-
-
 const resolvers = {
     Query: {
-        posts: () => posts,
-        allPosts: (parent, args, context) => {
-            return context.prisma.post.findMany({})
+        async allPosts(parent, args, context){
+            return context.prisma.post.findMany({
+                include:{
+                    community:true
+                }
+            })
         },
-        allCommunities: (parent, args, context) => {
+        async allCommunities(parent, args, context){
             return context.prisma.community.findMany({})
         },
-        communityPosts: (parent, args, context) => {
+        async communityPosts(parent, args, context){
             return context.prisma.community.findUnique({
                 where:{
                     name: args.community
@@ -70,16 +66,20 @@ const resolvers = {
         }
     },
     Mutation:{
-        createUser(parent, args, context){
+        async createUser(parent, args, context){
             console.log(args)
-            return context.prisma.user.create({
+            const user = await context.prisma.user.create({
                 data:{
                     name: args.name,
                     email: args.email
                 }
             })
+            return {
+                user,
+                token: jwt.sign({userID: user.id}, 'reddit-secret-code')
+            }
         },
-        createPost(parent, args, context){
+        async createPost(parent, args, context){
             return context.prisma.post.create({
                 data:{
                     content: args.content,

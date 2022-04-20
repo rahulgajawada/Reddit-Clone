@@ -29,9 +29,10 @@ const useStyles = makeStyles({
   },
 });
 
- const Post = ({title, content}) => {
+ const Post = ({title, content, community}) => {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
+  let communityURL = `/r/${community}`
 
   return (
   <div>
@@ -39,6 +40,9 @@ const useStyles = makeStyles({
       <CardContent>
         <ArrowUpwardIcon/>
         <ArrowDownwardIcon/>
+        <Typography className={classes.title} color="textSecondary" gutterBottom>
+         <a href={communityURL}>{"r/" + community}</a> 
+        </Typography>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
             Posted by u/munxer     one month ago
         </Typography>

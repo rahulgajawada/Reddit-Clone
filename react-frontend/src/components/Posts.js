@@ -7,6 +7,9 @@ const GET_POSTS = gql`
         allPosts{
             content
             title
+            community{
+                name
+            }
         }
     }
 
@@ -18,16 +21,16 @@ const Posts = () => {
     let x = []
     if(data){
         x = [...data.allPosts]
+        x = x.map(e => ({title: e.title, content:e.content, community:e.community.name }))
     }
     useEffect(() => {
         if(data){
-            console.log("post created query")
             setPosts(x)
         }
     }, data)
     return (
         <div>
-           {posts.map(({title, content}) => <Post title = {title} content={content}></Post>)}
+           {posts.map(({title, content, community}) => <Post title = {title} content={content} community={community}></Post>)}
         </div>
     )
 }
