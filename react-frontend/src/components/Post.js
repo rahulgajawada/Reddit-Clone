@@ -84,7 +84,7 @@ const Post = ({title, content, community}) => {
   const bull = <span className={classes.bullet}>•</span>;
   let communityURL = `/r/${community}`
   const linkTo = {
-    pathname: `/${title}`, //change this to the routing style that reddit uses
+    pathname: `/post/${title}`, //change this to the routing style that reddit uses
     state: {
       title,
       content,
@@ -99,7 +99,7 @@ const Post = ({title, content, community}) => {
         <ArrowUpwardIcon/>
         <ArrowDownwardIcon/>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-         <a href={communityURL}>{"r/" + community}</a> 
+         <Link to={communityURL}>{"r/" + community}</Link> 
         </Typography>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
             Posted by u/munxer     one month ago

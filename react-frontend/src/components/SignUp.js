@@ -15,12 +15,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useNavigate } from 'react-router-dom';
 const { gql, useQuery, useMutation } = require("@apollo/client");
 
-const LOGIN_USER = gql`
-  mutation LoginUser($email: String!, $password: String!) {
-  loginUser(email: $email, password: $password) {
-    user{
-      name
-    }  
+const CREATE_USER = gql`
+mutation CreateUser($email: String!, $name: String!, $password: String!) {
+  createUser(email: $email, name: $name, password: $password) {
+   user{
+       name
+   }
   }
 }
 `;
@@ -41,16 +41,17 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
-  const [loginUser, {data, loading, error}] = useMutation(LOGIN_USER);
+export default function SignUp() {
+  const [createUser, {data, loading, error}] = useMutation(CREATE_USER);
   let navigate = useNavigate() 
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const email = data.get('email')
+    const name = data.get('username')
     const password = data.get('password')
-    loginUser({variables: {email, password}})
+    createUser({variables: {name, email, password}})
     navigate('../')
   };
 
@@ -86,7 +87,7 @@ export default function SignIn() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in 
+              Sign up 
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -97,6 +98,16 @@ export default function SignIn() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                autoFocus
+              />
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
                 autoFocus
               />
               <TextField
@@ -119,7 +130,7 @@ export default function SignIn() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In 
+                Sign Up 
               </Button>
               <Grid container>
                 <Grid item xs>
@@ -128,7 +139,7 @@ export default function SignIn() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="/signup" variant="body2">
+                  <Link href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>

@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Posts from "./Posts";
 import Post from "./Post";
 import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 import ExpandedPost from "./ExpandedPost";
 import CssBaseline from "@mui/material/CssBaseline";
 import {
@@ -21,6 +22,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Routes,
   Link,
   useParams,
 } from "react-router-dom";
@@ -50,17 +52,20 @@ const RedditApp = () => {
 
         <Box sx={{ m: 4 }} />
 
-        <Box>
-          <Route exact path="/createPost" component={PostForm} />
-          <Box sx={{ m: 4 }} />
-          <Route exact path="/" component={Posts} />
+      <Box>
+          <Routes>
+          <Route exact path="/createPost" element={<PostForm/>} />
+          {/* <Box sx={{ m: 4 }} /> */}
+          <Route exact path="/" element={<Posts/>} />
           {
             //change route below to what reddit uses
           }
-          <Route exact path="/:title" component={ExpandedPost}></Route>{" "}
-          <Route exact path="/signin" component={SignIn} />
-          <Route exact path="/r/:community" component={CommunityPosts} />
-        </Box>
+          <Route exact path="/post/:title" element={<ExpandedPost/>}></Route>{" "}
+          <Route exact path="/signin" element={<SignIn/>} />
+          <Route exact path="/signup" element={<SignUp/>} />
+          <Route exact path="/r/:community" element={<CommunityPosts/>} />
+          </Routes>
+      </Box>
       </Container>
     </div>
   );

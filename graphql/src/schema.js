@@ -1,5 +1,7 @@
 const {gql} =  require('apollo-server')
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs') 
+const getUserID = require('./utils/getUserID')
 
  const typeDefs = gql`
     type Post{
@@ -14,7 +16,7 @@ const jwt = require('jsonwebtoken');
     }
 
     type User{
-        email: String!
+        email: String! 
         id: Int!
         name: String!
         posts: [Post!]!
@@ -39,8 +41,15 @@ const jwt = require('jsonwebtoken');
     }
 
     type Mutation{
-        createUser(email: String!, name: String!): AuthPayload!
+        createUser(email: String!, name: String!, password: String!): AuthPayload!
         createPost(title: String!, content: String!, community: String!): Post!
+        loginUser(email: String!, password: String!): AuthPayload!
+    }
+
+    input CreateUserInput{
+        name: String!
+        email: String!
+        password: String!
     }
 `
 
@@ -68,10 +77,16 @@ const resolvers = {
     Mutation:{
         async createUser(parent, args, context){
             console.log(args)
+            if(args.password.length < 8){
+                return new Error('Password must be 8 characters or longer')
+            }
+            const password = await bcrypt.hash(args.password, 10)
+            console.log(password)
             const user = await context.prisma.user.create({
                 data:{
                     name: args.name,
-                    email: args.email
+                    email: args.email,
+                    password
                 }
             })
             return {
@@ -80,12 +95,13 @@ const resolvers = {
             }
         },
         async createPost(parent, args, context){
+            const userID = getUserID(context.request)
             return context.prisma.post.create({
                 data:{
                     content: args.content,
                     title: args.title,
                     user:{
-                        connect:{id:1}
+                        connect:{id: userID}
                     },
                     community:{
                         connect:{
@@ -94,6 +110,23 @@ const resolvers = {
                     }
                 }
             })
+        },
+        async loginUser(parent, args, context){
+            const user = await context.prisma.user.findUnique({
+                where: {
+                    email: args.email
+                }
+            })
+            if(user == undefined){
+                return new Error("This email does not exist")
+            }
+            const hashedPassword = user.password
+            const isMatch = bcrypt.compare(args.password, hashedPassword)
+            if(!isMatch) return new Error("This password is incorrect")
+            return {
+                user,
+                token: jwt.sign({userID: user.id}, 'reddit-secret-code')
+            }
         }
     }
 }

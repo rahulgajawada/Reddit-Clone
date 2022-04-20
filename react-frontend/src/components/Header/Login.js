@@ -1,6 +1,7 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
+import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -25,7 +26,18 @@ export default function Login() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <PermIdentityIcon />
+        {/* <PermIdentityIcon /> */}
+            <Box
+              component="img"
+              sx={{
+                height: 30,
+              }}
+              alt="Your logo."
+              src={
+                "https://styles.redditmedia.com/t5_pn7ly/styles/profileIcon_yksd4elgqaz21.png?width=256&height=256&crop=256:256,smart&s=56788d3fce7aead85126ec771ed1a8cc65c2c148"
+              }
+            ></Box>
+            little_deer
         <KeyboardArrowDownIcon />
       </Button>
       <Menu
