@@ -84,12 +84,13 @@ const Post = ({title, content, community}) => {
   const bull = <span className={classes.bullet}>•</span>;
   let communityURL = `/r/${community}`
   const linkTo = {
-  pathname: `/${title}`, //change this to the routing style that reddit uses
-  state: {
-    title,
-    content,
-    //add likes, user to this, we need the likes and user when displaying minimized version of the post
-  },
+    pathname: `/${title}`, //change this to the routing style that reddit uses
+    state: {
+      title,
+      content,
+      //add likes, user to this, we need the likes and user when displaying minimized version of the post
+    },
+  }
   return (
   <Link to={linkTo} style={{ textDecoration: "none" }}>
   <div>
@@ -115,9 +116,9 @@ const Post = ({title, content, community}) => {
       </CardActions>
     </Card>
         <br></br>
-      </div>
+  </div>
     </Link>
   );
-};
+}
 
 export default Post;
