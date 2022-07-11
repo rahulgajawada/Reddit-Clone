@@ -13,14 +13,13 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useNavigate } from 'react-router-dom';
+import {useState, useEffect} from 'react'
 const { gql, useQuery, useMutation } = require("@apollo/client");
 
 const LOGIN_USER = gql`
   mutation LoginUser($email: String!, $password: String!) {
   loginUser(email: $email, password: $password) {
-    user{
-      name
-    }  
+    token
   }
 }
 `;
@@ -42,17 +41,26 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
-  const [loginUser, {data, loading, error}] = useMutation(LOGIN_USER);
+  const [loginUser, {loading, error, data}] = useMutation(LOGIN_USER);
+  const [token, setToken] = useState(undefined)
   let navigate = useNavigate() 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const email = data.get('email')
-    const password = data.get('password')
-    loginUser({variables: {email, password}})
-    navigate('../')
+    const edata = new FormData(event.currentTarget);
+    const email = edata.get('email')
+    const password = edata.get('password')
+    loginUser({variables: {email, password}}).then(res => setToken(res.data.loginUser.token))
   };
+  useEffect(() => {
+    if(token){
+      localStorage.setItem("token", "Bearer " + token)
+      console.log(token)
+      navigate('../')
+    }
+  }, token)
+
+
 
   return (
     <ThemeProvider theme={theme}>

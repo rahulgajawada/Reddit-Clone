@@ -50,10 +50,10 @@ export default function Login() {
         }}
       >
         <MenuItem component={Link} to="/signin" onclick={handleClose}>
-          profile
+         My Stuff 
         </MenuItem>
         <MenuItem component={Link} to="/signin" onclick={handleClose}>
-          my account
+         User Settings
         </MenuItem>
         <MenuItem component={Link} to="/signin" onClick={handleClose}>
           Login/Logout

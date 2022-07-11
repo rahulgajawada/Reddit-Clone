@@ -21,6 +21,7 @@ import NotesIcon from "@mui/icons-material/Notes";
 import CommunityBar from "./CommunityBar";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useState, useEffect } from "react";
+import {useNavigate } from 'react-router-dom';
 
 const { gql, useQuery, useMutation } = require("@apollo/client");
 
@@ -82,6 +83,7 @@ const PostForm = () => {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [community, setCommunityLocal] = useState("");
+  const [submitted, setSubmitted] = useState(false);
   setCommunity = setCommunityLocal;
 
   const handleChange = (event, newValue) => {
@@ -98,12 +100,17 @@ const PostForm = () => {
   };
 
   const createPostOnClick = () => {
-    createPost({ variables: { content, title, community } });
-    console.log(content, title, community);
+    createPost({ variables: { content, title, community } }).then(response => setSubmitted(true));
   };
   const [createPost, { data, loading, error }] = useMutation(CREATE_POST);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  let navigate = useNavigate() 
+  useEffect(() => {
+    if(submitted === true){
+       navigate('../') 
+    }
+  }, [submitted])
 
   return (
     <div>
