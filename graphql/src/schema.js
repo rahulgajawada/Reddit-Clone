@@ -5,7 +5,7 @@ const getUserID = require('./utils/getUserID')
 
  const typeDefs = gql`
     type Post{
-        author: User
+        user: User
         content: String
         # createdAt: DateTime
         id: Int
@@ -38,6 +38,7 @@ const getUserID = require('./utils/getUserID')
         allPosts: [Post!]!
         allCommunities: [Community!]!
         communityPosts(community: String!): [Post!]!
+        getLoginUser: User
     }
 
     type Mutation{
@@ -72,6 +73,14 @@ const resolvers = {
                 }
             })
             .posts()
+        },
+        async getLoginUser(parent, args, {prisma, request}){
+            const userID = getUserID(request)
+            return prisma.user.findUnique({
+                where:{
+                    id: userID
+                }
+            })
         }
     },
     Mutation:{
@@ -123,9 +132,10 @@ const resolvers = {
             const hashedPassword = user.password
             const isMatch = bcrypt.compare(args.password, hashedPassword)
             if(!isMatch) return new Error("This password is incorrect")
+            const token = jwt.sign({userID: user.id}, 'reddit-secret-code')
             return {
                 user,
-                token: jwt.sign({userID: user.id}, 'reddit-secret-code')
+                token 
             }
         }
     }

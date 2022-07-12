@@ -17,15 +17,29 @@ import { Grid } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PermIdentityIcon from "@mui/icons-material/PermIdentity";
 import { Link } from "react-router-dom";
+import {useState, useEffect} from 'react'
+import {useNavigate} from 'react-router-dom';
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 // const pages = ["Products", "Pricing", "Blog"];
 // const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const { gql, useQuery } = require('@apollo/client')
+
+const LOGIN_USER = gql`
+query GetLoginUser {
+  getLoginUser {
+    name
+  }
+}
+`
 
 const ResponsiveAppBar = () => {
+  let navigate = useNavigate()
+  const {loading, error, data} = useQuery(LOGIN_USER)
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [username, setUsername] = useState(undefined)
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     console.log(event.currentTarget);
@@ -34,6 +48,11 @@ const ResponsiveAppBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+    useEffect(() => {
+        if(data){
+            setUsername("u/" + data.getLoginUser.name)
+        }
+    }, [data])
 
   https: return (
     <AppBar
@@ -54,17 +73,11 @@ const ResponsiveAppBar = () => {
               }
             ></Box>
           </Link>
-          {/* <Button 
-        startIcon={<Avatar src={"https://logos-world.net/wp-content/uploads/2020/10/Reddit-Logo.png"} />}
-      >
-      </Button> */}
 
-          {/* <IconButton>
-          <a href="/"  
-    ><img src={"https://logos-world.net/wp-content/uploads/2020/10/Reddit-Logo.png"}></img>hi</a>
-        </IconButton> */}
 
           <Grid container justifyContent="flex-end">
+            {username != undefined? 
+              <Grid container justifyContent="flex-end">
             <IconButton href="/CreatePost">
               <AddIcon
                 sx={{
@@ -74,18 +87,14 @@ const ResponsiveAppBar = () => {
                 }}
               />
             </IconButton>
-            {/* <Box
-              component="img"
-              sx={{
-                height: 30,
-              }}
-              alt="Your logo."
-              src={
-                "https://styles.redditmedia.com/t5_pn7ly/styles/profileIcon_yksd4elgqaz21.png?width=256&height=256&crop=256:256,smart&s=56788d3fce7aead85126ec771ed1a8cc65c2c148"
+            <Login username={username} setUsername={setUsername}/>
+            </Grid>
+            :
+            <div>
+            <Button variant="outlined" sx={ { borderRadius: 28, textTransform: 'none' } } onClick={() => navigate('../signin')}>Log In</Button>
+            <Button variant="contained" sx={ { borderRadius: 28, textTransform: 'none' } } onClick={() => navigate('../signup')}>Sign Up</Button>
+            </div>
               }
-            ></Box>
-            little_deer */}
-            <Login />
           </Grid>
         </Toolbar>
       </Container>
