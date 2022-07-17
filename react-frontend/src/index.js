@@ -5,6 +5,7 @@ import RedditApp from './components/RedditApp'
 import { BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
 import { ApolloLink, concat } from "apollo-link";
 
+console.log(localStorage.getItem("token"))
 const authMiddleware = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {

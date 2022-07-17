@@ -52,7 +52,7 @@ export default function SignUp() {
     const name = data.get('username')
     const password = data.get('password')
     createUser({variables: {name, email, password}})
-    navigate('../')
+    navigate('../signin')
   };
 
   return (

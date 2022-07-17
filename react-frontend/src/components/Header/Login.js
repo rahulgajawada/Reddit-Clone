@@ -20,7 +20,8 @@ export default function Login({username, setUsername}) {
     setAnchorEl(null);
   };
   const handleCloseLogout = () => {
-    localStorage.setItem("authorization", null)
+    localStorage.clear()
+    console.log(localStorage.getItem("token"))
     setUsername(undefined)
     setAnchorEl(null);
   }
