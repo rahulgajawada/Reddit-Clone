@@ -53,6 +53,9 @@ const useStyles = makeStyles({
 const ExpandedPost = (props) => {
   const classes = useStyles();
   const post = useLocation().state;
+  console.log(useLocation())
+  console.log(post)
+  // const {title, content, community, username} = post
   const [likes, setLikes] = useState(post && post.likes ? post.likes : 0);
   const [comments, setComments] = useState([]);
 
@@ -108,7 +111,7 @@ const ExpandedPost = (props) => {
               gutterBottom
             >
               {post && post.user
-                ? "Posted by u/{post.user}"
+                ? `Posted by u/${post.user}`
                 : "Posted by u/unknown"}
             </Typography>
             <Typography variant="h6" mt="5px" gutterBottom>

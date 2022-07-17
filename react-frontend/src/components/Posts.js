@@ -10,6 +10,9 @@ const GET_POSTS = gql`
             community{
                 name
             }
+            user{
+                name
+            }
         }
     }
 
@@ -21,7 +24,7 @@ const Posts = () => {
     let x = []
     if(data){
         x = [...data.allPosts]
-        x = x.map(e => ({title: e.title, content:e.content, community:e.community.name }))
+        x = x.map(e => ({title: e.title, content:e.content, community:e.community.name, username: e.user.name}))
     }
     useEffect(() => {
         if(data){
@@ -30,7 +33,7 @@ const Posts = () => {
     }, data)
     return (
         <div>
-           {posts.map(({title, content, community}) => <Post title = {title} content={content} community={community}></Post>)}
+           {posts.map(({title, content, community, username}) => <Post title = {title} content={content} community={community} username={username}></Post>)}
         </div>
     )
 }

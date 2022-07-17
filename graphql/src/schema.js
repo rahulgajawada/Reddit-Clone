@@ -19,7 +19,7 @@ const getUserID = require('./utils/getUserID')
         email: String! 
         id: Int!
         name: String!
-        posts: [Post!]!
+        posts: [Post]
     }
 
     type AuthPayload{
@@ -59,7 +59,8 @@ const resolvers = {
         async allPosts(parent, args, context){
             return context.prisma.post.findMany({
                 include:{
-                    community:true
+                    community:true,
+                    user:true
                 }
             })
         },
@@ -124,6 +125,9 @@ const resolvers = {
             const user = await context.prisma.user.findUnique({
                 where: {
                     email: args.email
+                },
+                include: {
+                    posts: true
                 }
             })
             if(user == undefined){
